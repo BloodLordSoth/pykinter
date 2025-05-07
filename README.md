@@ -18,5 +18,5 @@
 <br>
 
 ---
-### <center>BloodLordSoth</center>
+### BloodLordSoth
 
