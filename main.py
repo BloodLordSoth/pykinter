@@ -1,5 +1,5 @@
 import customtkinter as ctk
-import os, time
+import os, time, sys
 
 root = ctk.CTk()
 root.title('Pykinter file creator')
@@ -12,9 +12,20 @@ root.resizable(width=False, height=False)
 def write_shell():
     value: str = combo.get()
     data = ['#!/bin/sh', 'python3 -m venv venv', 'source venv/bin/activate', 'pip install ' + value]
-    with open('kinter.sh', 'w') as file:
+    with open('ignition.sh', 'w') as file:
         for item in data:
             file.write(item + "\n")
+
+def write_main():
+    value: str = combo.get()
+    if value == "customtkinter":
+        data = ["import " + value + " as ctk", "", "root = ctk.CTk()", "root.title='Insert Title'", "root.geometry='400x300'", "ctk.set_appearance_mode('dark')", "root.configure(bg=\'#413e40\')", "", "root.mainloop()"]
+    elif value == "pygame":
+        data = ["import " + value, "", "WIDTH, HEIGHT = 500, 500", "", "WIN = pygame.display.set_mode((WIDTH, HEIGHT))", "pygame.display.set_caption('window title')", "def main():", "    game = True", "    While game:", "        for event in pygame.even.get():", "            if event.type == pygame.QUIT:", "                run = false", "                break", "pygame.quit()", "if __name__ == '__main__':", "    main()" ]
+    with open('ignition.py', 'w') as file:
+        for item in data:
+            file.write(item + "\n")
+
 
 def test():
     value_two: str = text_one.get()
@@ -35,9 +46,13 @@ def test():
     os.mkdir(value_two)
     time.sleep(1)
     os.chdir(value_two)
+    time.sleep(1)
     print('Initiating python build')
-    os.system('touch main.py')
+    time.sleep(1)
+    os.system('touch ignition.py')
     write_shell()
+    write_main()
+    time.sleep(1)
     print('Completed')
 
 
